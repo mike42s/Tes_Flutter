@@ -1,0 +1,33 @@
+TES FLUTTER
+Buat tampilan aplikasi gojek sederhana dengan penyimpanan data pada local hp saja, menggunakan sqlite.
+Kriteria sebagai berikut :
+1. Driver bisa login kedalam aplikasi, login menggunakan Nama Driver (Default : 'DRIVER 1') dan Password (Default : '1234').
+2. Menu yang muncul sesudah login adalah :
+	A.Profile, Berisi :	
+	   1. Foto Driver
+	   2. Nama Driver
+	   3. No.KTP
+	   4. Password
+	   Bisa diedit, dan disimpan dalam database local
+	B. Kirim Barang, dengan tahapan
+	   1. Terdapat Foto Barang
+	   2. Menginputkan koordinatnya, Lokasi A [Lokasi Driver] dan Lokasi B [Lokasi Kantor] 
+		  Lat Lokasi A  :			Lat Lokasi B  :		
+		  Long Lokasi A :			Long Lokasi B :
+		  
+		  Jarak Antara Lokasi A dan B adalah : ... Km
+		  
+	   3. Jika sudah disimpan
+	c. History Kirim Barang
+	   1. Menampilkan riwayat pengiriman barang dari menu kirim barang
+	   2. Filter Laporan Hanya tanggal saja
+	d. Logout
+
+
+Phase:
+1. Create Display Login, Profile Setting
+2. Function Camera -> Setting Database System (SQLITE with SQFLITE) means Save Profile and Create Shared Prefrences for Auto Login (Include Delete Save Profile and Logout) --> needs sign in / sign up??
+3. Send Goods with Forms include Photo Camera, Manual Coordinate and difference distance Driver and Office, Save System
+4. History Page -> Need Database System and filter system only date?? -> need research
+
+target phase 1-3 -> 15 Agustus 2023 -> keep moving
