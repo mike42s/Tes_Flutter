@@ -3,7 +3,7 @@ Buat tampilan aplikasi gojek sederhana dengan penyimpanan data pada local hp saj
 Kriteria sebagai berikut :
 1. Driver bisa login kedalam aplikasi, login menggunakan Nama Driver (Default : 'DRIVER 1') dan Password (Default : '1234').
 2. Menu yang muncul sesudah login adalah :
-	A.Profile, Berisi :	
+	A.Profile, Berisi : -> DONE	
 	   1. Foto Driver
 	   2. Nama Driver
 	   3. No.KTP
@@ -21,13 +21,48 @@ Kriteria sebagai berikut :
 	c. History Kirim Barang
 	   1. Menampilkan riwayat pengiriman barang dari menu kirim barang
 	   2. Filter Laporan Hanya tanggal saja
-	d. Logout
+	d. Logout -> DONE
 
 
 Phase:
-1. Create Display Login, Profile Setting
-2. Function Camera -> Setting Database System (SQLITE with SQFLITE) means Save Profile and Create Shared Prefrences for Auto Login (Include Delete Save Profile and Logout) --> needs sign in / sign up??
+1. Create Display Login, Profile Setting -> DONE
+2. Function Camera -> Setting Database System (SQLITE with SQFLITE) means Save Profile and Create Shared Prefrences for Auto Login (Include Delete Save Profile and Logout) --> needs sign in / sign up?? -> DONE
 3. Send Goods with Forms include Photo Camera, Manual Coordinate and difference distance Driver and Office, Save System
 4. History Page -> Need Database System and filter system only date?? -> need research
 
 target phase 1-3 -> 15 Agustus 2023 -> keep moving
+
+
+MenuButton(
+                                        label: 'Files',
+                                        icon: Icons.file_present,
+                                        onPressed: () async {
+                                          final statusX =
+                                              await getMediaPermission();
+                                          print("Final Status = $statusX");
+                                          if (statusX.isGranted) {
+                                            FilePickerResult? pickedFile =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              // allowMultiple: true,
+                                              type: FileType.custom,
+                                              allowedExtensions: ['jpg', 'png'],
+                                            );
+                                            if (pickedFile != null) {
+                                              for (int i = 0;
+                                                  i < pickedFile.files.length;
+                                                  i++) {
+                                                File selectedFile = File(
+                                                    pickedFile.files[i].path
+                                                        .toString());
+                                                print(selectedFile);
+                                              }
+                                            } else {
+                                              print("error");
+                                            }
+                                          } else {
+                                            print(
+                                                "Error for request permission manageExternalStorage");
+                                          }
+                                        },
+                                      ),
