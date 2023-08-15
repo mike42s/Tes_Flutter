@@ -5,6 +5,8 @@ import 'package:tesflutter/defaultSetting.dart';
 import 'package:tesflutter/modal/Profile.dart';
 import 'package:tesflutter/modal/dbprovider_database.dart';
 import 'package:tesflutter/view/CreateProfile.dart';
+import 'package:tesflutter/view/FormPengirimanBarang.dart';
+import 'package:tesflutter/view/KirimBarang.dart';
 import 'package:tesflutter/view/Menu.dart';
 
 enum AniProps { opacity, translateY }
@@ -19,8 +21,7 @@ class FadeAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     final tween = MultiTween<AniProps>()
       ..add(AniProps.opacity, Tween(begin: 0.0, end: 1.0))
-      ..add(AniProps.translateY, Tween(begin: -30.0, end: 0.0),
-          const Duration(milliseconds: 500), Curves.easeOut);
+      ..add(AniProps.translateY, Tween(begin: -30.0, end: 0.0), const Duration(milliseconds: 500), Curves.easeOut);
 
     return PlayAnimation<MultiTweenValues<AniProps>>(
       delay: Duration(milliseconds: (500 * delay).round()),
@@ -29,9 +30,7 @@ class FadeAnimation extends StatelessWidget {
       child: child,
       builder: (context, child, animation) => Opacity(
         opacity: animation.get(AniProps.opacity),
-        child: Transform.translate(
-            offset: Offset(0, animation.get(AniProps.translateY)),
-            child: child),
+        child: Transform.translate(offset: Offset(0, animation.get(AniProps.translateY)), child: child),
       ),
     );
   }
@@ -85,8 +84,7 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  MaterialStateProperty<Color?> customColor_Grey =
-      MaterialStateProperty.resolveWith<Color?>(
+  MaterialStateProperty<Color?> customColor_Grey = MaterialStateProperty.resolveWith<Color?>(
     (Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
         return Colors.green.shade600; // Color for pressed state
@@ -109,8 +107,7 @@ class _LoginState extends State<Login> {
               body: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(begin: Alignment.topCenter, colors: [
+                    gradient: LinearGradient(begin: Alignment.topCenter, colors: [
                   Colors.green.shade300,
                   Colors.green.shade400,
                   colorDefaultAplikasi,
@@ -131,8 +128,7 @@ class _LoginState extends State<Login> {
                               1,
                               const Text(
                                 "Hey",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 40),
+                                style: TextStyle(color: Colors.black, fontSize: 40),
                               )),
                           const SizedBox(
                             height: 10,
@@ -141,8 +137,7 @@ class _LoginState extends State<Login> {
                               1.3,
                               const Text(
                                 "Welcome Back",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
+                                style: TextStyle(color: Colors.black, fontSize: 18),
                               )),
                         ],
                       ),
@@ -157,11 +152,7 @@ class _LoginState extends State<Login> {
                               topRight: Radius.circular(60),
                             ),
                             gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                colors: [
-                                  Colors.grey.shade300,
-                                  Colors.grey.shade400
-                                ])),
+                                begin: Alignment.topCenter, colors: [Colors.grey.shade300, Colors.grey.shade400])),
                         child: Padding(
                           padding: const EdgeInsets.all(30),
                           child: SingleChildScrollView(
@@ -175,8 +166,7 @@ class _LoginState extends State<Login> {
                                     Container(
                                       decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                          borderRadius: BorderRadius.circular(30),
                                           boxShadow: [
                                             BoxShadow(
                                                 color: Colors.grey.shade300,
@@ -188,45 +178,34 @@ class _LoginState extends State<Login> {
                                           Container(
                                             padding: const EdgeInsets.all(20),
                                             decoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(
-                                                        color: Colors
-                                                            .grey.shade200))),
+                                                border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
                                             child: TextField(
                                               controller: _controller_username,
                                               decoration: const InputDecoration(
                                                   hintText: "Username",
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.grey),
+                                                  hintStyle: TextStyle(color: Colors.grey),
                                                   border: InputBorder.none),
                                             ),
                                           ),
                                           Container(
                                             padding: const EdgeInsets.all(20),
                                             decoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(
-                                                        color: Colors
-                                                            .grey.shade200))),
+                                                border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
                                             child: TextField(
                                               controller: _controller_password,
                                               obscureText: _obscureText,
                                               decoration: InputDecoration(
-                                                hintStyle: const TextStyle(
-                                                    color: Colors.grey),
+                                                hintStyle: const TextStyle(color: Colors.grey),
                                                 border: InputBorder.none,
                                                 labelText: 'Password',
                                                 suffixIcon: IconButton(
                                                   icon: Icon(
-                                                    _obscureText
-                                                        ? Icons.visibility
-                                                        : Icons.visibility_off,
+                                                    _obscureText ? Icons.visibility : Icons.visibility_off,
                                                   ),
                                                   onPressed: () {
                                                     setState(
                                                       () {
-                                                        _obscureText =
-                                                            !_obscureText;
+                                                        _obscureText = !_obscureText;
                                                       },
                                                     );
                                                   },
@@ -243,78 +222,75 @@ class _LoginState extends State<Login> {
                                 FadeAnimation(
                                   1.6,
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
                                       Container(
                                         height: 50,
                                         child: ElevatedButton(
                                           style: ButtonStyle(
                                             backgroundColor: customColor_Grey,
-                                            shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
+                                                borderRadius: BorderRadius.circular(30.0),
                                               ),
                                             ),
                                           ),
                                           onPressed: () async {
                                             String message = "Error not Found";
-
-                                            final Profile _user =
-                                                await DBProvider.db.getUser(
+                                            final Profile _user = await DBProvider.db.getUser(
                                               _controller_username.text,
                                               _controller_password.text,
                                             );
 
-                                            print("user : " + _user.toString());
-                                            if (_user.nama != "") {
-                                              if (_controller_username.text ==
-                                                      "DRIVER 1" &&
-                                                  _controller_password.text ==
-                                                      "1234") {
+                                            print("user : " + _user.toJson().toString());
+                                            print("user : " + _controller_password.text.toString());
+                                            print("user : " + _controller_username.text.toString());
+                                            if (_controller_username.text == "DRIVER 1" &&
+                                                _controller_password.text == "1234") {
+                                              print("JALUR C");
+                                              message = "Berhasil Login";
+                                              //need dummy side
+                                              Profile _profile = Profile(
+                                                nama: "DRIVER 1",
+                                                password: "1234",
+                                                fotodriver: '',
+                                                noktp: '9999999999999999',
+                                              );
+                                              // ProfileManager.saveProfile(
+                                              //     _profile);
+                                              transision_replacement(
+                                                context,
+                                                MyHomePage(
+                                                  profile: _profile,
+                                                ),
+                                              );
+                                            }
+                                            if (_user.nama == "" &&
+                                                _user.noktp == "" &&
+                                                _user.fotodriver == "" &&
+                                                _user.password == "") {
+                                              print("JALUR A");
+                                              message == "User tidak ada";
+                                            } else {
+                                              print("JALUR B");
+                                              if (_controller_username.text == _user.nama &&
+                                                  _controller_password.text == _user.password.toString()) {
                                                 message = "Berhasil Login";
-                                                //need dummy side
-                                                Profile _profile = Profile(
-                                                  nama: "DRIVER 1",
-                                                  password: "1234",
-                                                  fotodriver: '',
-                                                  noktp: '',
-                                                );
-                                                ProfileManager.saveProfile(
-                                                    _profile);
+                                                final x = ProfileManager.saveProfile(_user);
                                                 transision_replacement(
-                                                  context,
-                                                  MyHomePage(
-                                                    profile: _profile,
-                                                  ),
-                                                );
-                                              } else {
-                                                message = "Berhasil Login";
-                                                if (_controller_username.text ==
-                                                        _user.nama &&
-                                                    _controller_password.text ==
-                                                        _user.password
-                                                            .toString()) {
-                                                  final x = ProfileManager
-                                                      .saveProfile(_user);
-                                                  transision_replacement(
                                                     context,
                                                     MyHomePage(
                                                       profile: _user,
-                                                    ),
-                                                  );
-                                                } else {
-                                                  message = "Gagal Login";
-                                                }
+                                                    ));
+                                                // PengirimanBarang(profile: _user));
+                                              } else {
+                                                message = "Gagal Login";
                                               }
                                             }
                                             final snackBar = SnackBar(
                                               content: Text(message),
                                             );
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackBar);
+                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                           },
                                           child: const Text("Log In"),
                                         ),
@@ -327,17 +303,14 @@ class _LoginState extends State<Login> {
                                         child: ElevatedButton(
                                           style: ButtonStyle(
                                             backgroundColor: customColor_Grey,
-                                            shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
+                                                borderRadius: BorderRadius.circular(30.0),
                                               ),
                                             ),
                                           ),
                                           onPressed: () async {
-                                            transision_page(
-                                                context, BuatProfile());
+                                            transision_page(context, BuatProfile());
                                           },
                                           child: const Text("Create Account"),
                                         ),
@@ -360,6 +333,10 @@ class _LoginState extends State<Login> {
               return transision_page(
                 context,
                 MyHomePage(profile: _user),
+                // InputData(
+                //   profile: _user,
+                //   type: "new",
+                // ),
               );
             });
 

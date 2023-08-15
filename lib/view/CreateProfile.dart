@@ -55,8 +55,7 @@ class _BuatProfileState extends State<BuatProfile> {
         });
       } catch (e) {
         final snackBar = SnackBar(
-          content:
-              Text("An error occurred while fetching data from the database"),
+          content: Text("An error occurred while fetching data from the database"),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
@@ -80,8 +79,7 @@ class _BuatProfileState extends State<BuatProfile> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey.shade400,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        40), // Same radius as the Container
+                    borderRadius: BorderRadius.circular(40), // Same radius as the Container
                   ),
                 ),
                 onPressed: () async {
@@ -175,69 +173,53 @@ class _BuatProfileState extends State<BuatProfile> {
                                           label: 'Camera',
                                           icon: Icons.camera_alt,
                                           onPressed: () async {
-                                            final statusX =
-                                                await getCameraPermission();
+                                            final statusX = await getCameraPermission();
                                             print("Final Status = $statusX");
                                             if (statusX.isGranted) {
                                               final picker = ImagePicker();
-                                              XFile? pickedFile =
-                                                  await picker.pickImage(
+                                              XFile? pickedFile = await picker.pickImage(
                                                 source: ImageSource.camera,
-                                                preferredCameraDevice:
-                                                    CameraDevice.front,
+                                                preferredCameraDevice: CameraDevice.front,
                                               );
                                               if (pickedFile != null) {
-                                                File selectedFile =
-                                                    File(pickedFile.path);
+                                                File selectedFile = File(pickedFile.path);
                                                 print(selectedFile);
-                                                final x =
-                                                    await moveAndRenameFile(
-                                                        selectedFile.path,
-                                                        generateFileName(
-                                                            selectedFile.path));
-                                                print("Result after Moving : " +
-                                                    x.toString());
+                                                final x = await moveAndRenameFile(
+                                                    selectedFile.path, generateFileName(selectedFile.path));
+                                                print("Result after Moving : " + x.toString());
                                                 _profile.fotodriver = x;
                                                 Navigator.pop(context);
                                               } else {
                                                 print("error");
                                               }
                                             } else {
-                                              print(
-                                                  "Error for request permission camera");
+                                              print("Error for request permission camera");
                                             }
                                           }),
                                       MenuButton(
                                         label: 'Gallery',
                                         icon: Icons.photo,
                                         onPressed: () async {
-                                          final statusX =
-                                              await getMediaPermission();
+                                          final statusX = await getMediaPermission();
                                           print("Final Status = $statusX");
                                           if (statusX.isGranted) {
                                             final picker = ImagePicker();
-                                            XFile? pickedFile =
-                                                await picker.pickImage(
+                                            XFile? pickedFile = await picker.pickImage(
                                               source: ImageSource.gallery,
                                             );
                                             if (pickedFile != null) {
-                                              File selectedFile =
-                                                  File(pickedFile.path);
+                                              File selectedFile = File(pickedFile.path);
                                               print(selectedFile);
                                               final x = await moveAndRenameFile(
-                                                  selectedFile.path,
-                                                  generateFileName(
-                                                      selectedFile.path));
-                                              print("Result after Moving : " +
-                                                  x.toString());
+                                                  selectedFile.path, generateFileName(selectedFile.path));
+                                              print("Result after Moving : " + x.toString());
                                               _profile.fotodriver = x;
                                               Navigator.pop(context);
                                             } else {
                                               print("error");
                                             }
                                           } else {
-                                            print(
-                                                "Error for request permission camera");
+                                            print("Error for request permission camera");
                                           }
                                         },
                                       ),
@@ -265,8 +247,7 @@ class _BuatProfileState extends State<BuatProfile> {
                   Expanded(
                     flex: 4,
                     child: CustomText(
-                      text:
-                          "Pasang Foto yang oke! Semua orang bakal bisa lihat.",
+                      text: "Pasang Foto yang oke! Semua orang bakal bisa lihat.",
                     ),
                   ),
                 ],
@@ -351,8 +332,7 @@ class _BuatProfileState extends State<BuatProfile> {
                             return 'No KTP is required';
                           }
 
-                          final alphabeticPattern =
-                              RegExp(r'^[0-9]*$'); // Allows only number
+                          final alphabeticPattern = RegExp(r'^[0-9]*$'); // Allows only number
 
                           if (!alphabeticPattern.hasMatch(value)) {
                             return 'Input must contain numbers only';
@@ -397,8 +377,7 @@ class _BuatProfileState extends State<BuatProfile> {
                             return 'Password is required';
                           }
 
-                          final passwordPattern = RegExp(
-                              r'^[!-~]+$'); // Allows only ASCII characters (range: 32-126)
+                          final passwordPattern = RegExp(r'^[!-~]+$'); // Allows only ASCII characters (range: 32-126)
 
                           if (!passwordPattern.hasMatch(value)) {
                             return 'Input must only contain ASCII characters (range: 32-126)';

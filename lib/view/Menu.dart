@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:tesflutter/defaultSetting.dart';
 import 'package:tesflutter/modal/Profile.dart';
+import 'package:tesflutter/view/KirimBarang.dart';
 import 'package:tesflutter/view/ProfileSetting.dart';
 import 'package:tesflutter/view/searchBarDummy.dart';
 
@@ -60,6 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     profile = widget.profile;
     super.initState();
+    init_State();
+  }
+
+  void init_State() async {
+    Geolocator.requestPermission();
   }
 
   @override
@@ -111,76 +118,118 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  color: Colors.blue.shade200,
-                  padding: EdgeInsets.all(20),
-                  child: Container(
-                    // color: Colors.white,
-                    // child: CarouselSlider(
-                    //   options: CarouselOptions(
-                    //     enableInfiniteScroll: false,
-                    //     height: 50,
-                    //     aspectRatio: 2.0,
-                    //     enlargeCenterPage: true,
-                    //     scrollDirection: Axis.vertical,
-                    //     autoPlay: true,
-                    //   ),
-                    //   items: imageSliders,
-                    // ),
-                    child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Row(
-                                  children: [Icon(Icons.abc), Text("Gojek")]),
-                            ),
-                            Icon(Icons.abc),
-                            Icon(Icons.abc),
-                            Icon(Icons.abc),
-                          ],
-                        )),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10), // Add space here
-                  child: Wrap(
-                    spacing: 15,
-                    runSpacing: 20,
-                    children: categories.map((category) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Handle category button tapped
-                        },
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      color: Colors.blue.shade200,
+                      padding: EdgeInsets.all(20),
+                      child: Container(
+                        // color: Colors.white,
+                        // child: CarouselSlider(
+                        //   options: CarouselOptions(
+                        //     enableInfiniteScroll: false,
+                        //     height: 50,
+                        //     aspectRatio: 2.0,
+                        //     enlargeCenterPage: true,
+                        //     scrollDirection: Axis.vertical,
+                        //     autoPlay: true,
+                        //   ),
+                        //   items: imageSliders,
+                        // ),
                         child: Container(
-                          constraints: const BoxConstraints(
-                            maxHeight: 80, // Set fixed height
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            margin: EdgeInsets.all(5.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                // Icon(
-                                //   Icons.motorcycle,
-                                //   size: 40,
-                                // ),
-                                category['icon'],
-                                Text(category['data']),
+                                Container(
+                                  child: Row(children: [
+                                    Icon(Icons.abc),
+                                    Text("Gojek")
+                                  ]),
+                                ),
+                                Icon(Icons.abc),
+                                Icon(Icons.abc),
+                                Icon(Icons.abc),
                               ],
+                            )),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 10), // Add space here
+                      child: Wrap(
+                        spacing: 15,
+                        runSpacing: 20,
+                        children: categories.map((category) {
+                          return GestureDetector(
+                            onTap: () {
+                              // Handle category button tapped
+                            },
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                maxHeight: 80, // Set fixed height
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    // Icon(
+                                    //   Icons.motorcycle,
+                                    //   size: 40,
+                                    // ),
+                                    category['icon'],
+                                    Text(category['data']),
+                                  ],
+                                ),
+                              ),
                             ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    transision_page(
+                        context, PengirimanBarang(profile: profile));
+                  },
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxHeight: 80, // Set fixed height
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.motorcycle,
+                            size: 40,
                           ),
-                        ),
-                      );
-                    }).toList(),
+                          CustomText(
+                            text: "GoSend",
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

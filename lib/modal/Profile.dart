@@ -1,23 +1,20 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile {
+  // int id;
   String nama;
   String noktp;
   String fotodriver;
   String password;
 
   Profile({
+    // required this.id,
     required this.nama,
     required this.noktp,
     required this.fotodriver,
     required this.password,
   });
-  Map<String, dynamic> toJson() => {
-        "nama": nama,
-        "noktp": noktp,
-        "fotodriver": fotodriver,
-        "password": password
-      };
+  Map<String, dynamic> toJson() => {"nama": nama, "noktp": noktp, "fotodriver": fotodriver, "password": password};
   Map<String, dynamic> toJsonDatabase() => {
         // "id": id,
         "nama": nama,
@@ -26,6 +23,7 @@ class Profile {
         "password": password
       };
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
+      // id: json["id"],
       nama: json["nama"],
       noktp: json["noktp"],
       fotodriver: json["fotodriver"],
@@ -33,6 +31,7 @@ class Profile {
 }
 
 class ProfileManager {
+  // static const String _idKey = 'id';
   static const String _namaKey = 'nama';
   static const String _noktpKey = 'noktp';
   static const String _fotodriverKey = 'fotodriver';
@@ -45,6 +44,7 @@ class ProfileManager {
 
   static Future<void> saveProfile(Profile profile) async {
     final prefs = await SharedPreferences.getInstance();
+    // await prefs.setInt(_idKey, profile.id);
     await prefs.setString(_namaKey, profile.nama);
     await prefs.setString(_noktpKey, profile.noktp);
     await prefs.setString(_fotodriverKey, profile.fotodriver);
@@ -53,15 +53,13 @@ class ProfileManager {
 
   static Future<Profile?> getProfile() async {
     final prefs = await SharedPreferences.getInstance();
+    // final id = prefs.getInt(_idKey);
     final nama = prefs.getString(_namaKey);
     final noktp = prefs.getString(_noktpKey);
     final fotodriver = prefs.getString(_fotodriverKey);
     final password = prefs.getString(_passwordKey);
 
-    if (nama == null ||
-        noktp == null ||
-        fotodriver == null ||
-        password == null) {
+    if (nama == null || noktp == null || fotodriver == null || password == null) {
       return null;
     }
 
@@ -70,6 +68,7 @@ class ProfileManager {
       noktp: noktp,
       fotodriver: fotodriver,
       password: password,
+      // id: id,
     );
   }
 }
