@@ -33,6 +33,11 @@ class _HistoryListPageState extends State<HistoryListPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: setAppBarDefault("History Pengiriman Barang"),

@@ -47,6 +47,11 @@ class _UbahProfileState extends State<UbahProfile> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Theme(
       data: themeProfile,

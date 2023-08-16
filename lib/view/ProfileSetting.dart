@@ -23,6 +23,11 @@ class _ProfileSettingState extends State<ProfileSetting> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Theme(
       data: themeProfile,
@@ -78,46 +83,30 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                   ElevatedButton(
                                     onPressed: () async {
                                       //delete all login pref
-                                      final profile =
-                                          await ProfileManager.getProfile();
+                                      final profile = await ProfileManager.getProfile();
 
                                       if (profile != null) {
                                         // print('id: ${profile.id}');
                                         print('nama: ${profile.nama}');
                                         print('noktp: ${profile.noktp}');
-                                        print(
-                                            'fotodriver: ${profile.fotodriver}');
+                                        print('fotodriver: ${profile.fotodriver}');
                                         print('password: ${profile.password}');
                                       } else {
                                         print('No profile found.');
                                       }
-                                      await ProfileManager
-                                          .deleteAllSharedPreferences();
-                                      Navigator.popUntil(
-                                          context, (route) => false);
+                                      await ProfileManager.deleteAllSharedPreferences();
+                                      Navigator.popUntil(context, (route) => false);
                                       Navigator.push(
                                           context,
                                           PageRouteBuilder(
-                                              pageBuilder: (BuildContext
-                                                          context,
-                                                      Animation<double>
-                                                          animation,
-                                                      Animation<double>
-                                                          secondaryAnimation) =>
+                                              pageBuilder: (BuildContext context, Animation<double> animation,
+                                                      Animation<double> secondaryAnimation) =>
                                                   const Login(),
-                                              transitionsBuilder: (BuildContext
-                                                      context,
-                                                  Animation<double> animation,
-                                                  Animation<double>
-                                                      secondaryAnimation,
-                                                  Widget child) {
-                                                return FadeTransition(
-                                                    opacity: animation,
-                                                    child: child);
+                                              transitionsBuilder: (BuildContext context, Animation<double> animation,
+                                                  Animation<double> secondaryAnimation, Widget child) {
+                                                return FadeTransition(opacity: animation, child: child);
                                               },
-                                              transitionDuration:
-                                                  const Duration(
-                                                      milliseconds: 500)));
+                                              transitionDuration: const Duration(milliseconds: 500)));
                                     },
                                     child: const Text('OK'),
                                   ),
@@ -189,9 +178,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               borderRadius: BorderRadius.circular(30),
                             ), // Set the background color of the star and text container to black
                             padding: const EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal:
-                                    10), // Add padding to adjust the black background
+                                vertical: 5, horizontal: 10), // Add padding to adjust the black background
                             child: Row(
                               children: [
                                 Container(

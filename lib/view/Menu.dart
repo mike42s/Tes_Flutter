@@ -124,6 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<bool> _checkPermissions() async {
     var status = await Permission.storage.status;
     if (status.isGranted) {
@@ -402,7 +407,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                 
               ],
             ),
           ),
@@ -415,7 +419,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-} 
+}
+
 class GojekSearchBar extends StatelessWidget {
   final Profile profile;
   const GojekSearchBar({super.key, required this.profile});

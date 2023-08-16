@@ -124,6 +124,8 @@ class DBProvider {
   Future saveBarang(PengirimanBarangModal FileSave) async {
     try {
       final db = await database;
+      print("Pre  Query Save Barang: " + FileSave.toJsonDatabase().toString());
+
       final res = await db.insert('Pengiriman', FileSave.toJsonDatabase(), conflictAlgorithm: ConflictAlgorithm.fail);
       print("Hasil Query Save Barang: " + res.toString());
       return res;

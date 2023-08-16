@@ -44,7 +44,12 @@ class PengirimanBarangModal {
   factory PengirimanBarangModal.fromJson(Map<String, dynamic> json) {
     final y = (json["fotoPengirimanBarang"] as String);
     String result = y.substring(1, y.length - 1);
-    final _result = result.split(',').map((item) => item.trim()).toList();
+    List<String> _result = [];
+    if (y != "[]") {
+      _result = result.split(',').map((item) => item.trim()).toList();
+    } else {
+      _result = [];
+    }
     final x = PengirimanBarangModal(
       id: json["id"],
       fotoPengirimanBarang: _result,

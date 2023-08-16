@@ -1,15 +1,15 @@
 TES FLUTTER
 Buat tampilan aplikasi gojek sederhana dengan penyimpanan data pada local hp saja, menggunakan sqlite.
 Kriteria sebagai berikut :
-1. Driver bisa login kedalam aplikasi, login menggunakan Nama Driver (Default : 'DRIVER 1') dan Password (Default : '1234').
-2. Menu yang muncul sesudah login adalah :
+1. Driver bisa login kedalam aplikasi, login menggunakan Nama Driver (Default : 'DRIVER 1') dan Password (Default : '1234'). -> DONE
+2. Menu yang muncul sesudah login adalah :-> DONE
 	A.Profile, Berisi : -> DONE	
 	   1. Foto Driver
 	   2. Nama Driver
 	   3. No.KTP
 	   4. Password
 	   Bisa diedit, dan disimpan dalam database local
-	B. Kirim Barang, dengan tahapan
+	B. Kirim Barang, dengan tahapan-> DONE
 	   1. Terdapat Foto Barang
 	   2. Menginputkan koordinatnya, Lokasi A [Lokasi Driver] dan Lokasi B [Lokasi Kantor] 
 		  Lat Lokasi A  :			Lat Lokasi B  :		
@@ -18,7 +18,7 @@ Kriteria sebagai berikut :
 		  Jarak Antara Lokasi A dan B adalah : ... Km
 		  
 	   3. Jika sudah disimpan
-	c. History Kirim Barang
+	c. History Kirim Barang-> DONE
 	   1. Menampilkan riwayat pengiriman barang dari menu kirim barang
 	   2. Filter Laporan Hanya tanggal saja
 	d. Logout -> DONE
@@ -27,46 +27,7 @@ Kriteria sebagai berikut :
 Phase:
 1. Create Display Login, Profile Setting -> DONE
 2. Function Camera -> Setting Database System (SQLITE with SQFLITE) means Save Profile and Create Shared Prefrences for Auto Login (Include Delete Save Profile and Logout) --> needs sign in / sign up?? -> DONE
-3. Send Goods with Forms include Photo Camera, Manual Coordinate and difference distance Driver and Office, Save System
-4. History Page -> Need Database System and filter system only date?? -> need research
+3. Send Goods with Forms include Photo Camera, Manual Coordinate and difference distance Driver and Office, Save System _> DONE
+4. History Page -> Need Database System and filter system only date?? -> DONE
 
-
--- foto profile pas daftar ga lansgung ke state
--- sama ini error buka galeri -> Android 13 issue
-
-/data/data/com.example.tesflutter/cache/Profile/Profile-20230815-jsbc8.jpg
-/data/data/com.example.tesflutter/cache/Profile/Profile-20230815-jsbc8.jpg
-/data/data/com.example.tesflutter/cache/Profile/Profile-20230815-82ric.jpg, /data/data/com.example.tesflutter/cache/Profile/Profile-20230815-4sncl.jpg
-MenuButton(
-                                        label: 'Files',
-                                        icon: Icons.file_present,
-                                        onPressed: () async {
-                                          final statusX =
-                                              await getMediaPermission();
-                                          print("Final Status = $statusX");
-                                          if (statusX.isGranted) {
-                                            FilePickerResult? pickedFile =
-                                                await FilePicker.platform
-                                                    .pickFiles(
-                                              // allowMultiple: true,
-                                              type: FileType.custom,
-                                              allowedExtensions: ['jpg', 'png'],
-                                            );
-                                            if (pickedFile != null) {
-                                              for (int i = 0;
-                                                  i < pickedFile.files.length;
-                                                  i++) {
-                                                File selectedFile = File(
-                                                    pickedFile.files[i].path
-                                                        .toString());
-                                                print(selectedFile);
-                                              }
-                                            } else {
-                                              print("error");
-                                            }
-                                          } else {
-                                            print(
-                                                "Error for request permission manageExternalStorage");
-                                          }
-                                        },
-                                      ),
+-- maybe last error buka galeri -> Permission Android 13 issue -> bypass

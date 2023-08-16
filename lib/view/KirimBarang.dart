@@ -28,6 +28,11 @@ class _PengirimanBarangState extends State<PengirimanBarang> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   final List<Widget> imageSliders = imgList_Send
       .map((item) => Container(
             child: Container(

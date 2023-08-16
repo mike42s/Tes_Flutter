@@ -1087,6 +1087,8 @@ class _InputDataState extends State<InputData> {
                                     SizedBox(width: 16.0),
                                     ElevatedButton(
                                       onPressed: () {
+                                        print("Length Foto Barang : " + widget.fotoPengiriman!.length.toString());
+
                                         // Handle button press
                                         transision_page(
                                             context,
@@ -1295,6 +1297,7 @@ class _MapScreenState extends State<MapScreen> {
                   action: SnackBarAction(
                     label: 'Ya',
                     onPressed: () {
+                      print("Length Foto Barang : " + widget.fotoPengiriman!.length.toString());
                       transision_page(
                           context,
                           InputData(
@@ -1316,6 +1319,8 @@ class _MapScreenState extends State<MapScreen> {
                   action: SnackBarAction(
                     label: 'Ya',
                     onPressed: () {
+                      print("Length Foto Barang : " + widget.fotoPengiriman!.length.toString());
+
                       transision_page(
                           context,
                           InputData(
