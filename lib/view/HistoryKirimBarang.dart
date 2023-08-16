@@ -49,36 +49,6 @@ class _HistoryListPageState extends State<HistoryListPage> {
             for (int i = 0; i < x.length; i++) {
               print(x[i].toJson().toString());
             }
-            // filteredList = x;
-
-            // Filter the history goods by a specific date (e.g., 15th of August)
-            // DateTime targetDate = DateTime(2023, 8, 15); // Replace with your desired date
-            // List<PengirimanBarangModal> filteredList = x
-            //     .where((item) =>
-            //         item.createdat.year == targetDate.year &&
-            //         item.createdat.month == targetDate.month &&
-            //         item.createdat.day == targetDate.day)
-            //     .toList();
-
-            // return ListView.builder(
-            //   itemCount: filteredList.length,
-            //   itemBuilder: (context, index) {
-            //     return ListTile(
-            //       title: Text(
-            //           'History Barang ID: ${DateFormat('dd/MM/yyyy hh:mm:s').format((filteredList[index].createdat))}'),
-            // onTap: () {
-            //   transision_page(
-            //     context,
-            //     HistoryDetailPage(
-            //       historyBarang: filteredList[index],
-            //       profile: _profile,
-            //     ),
-            //   );
-            // },
-            //     );
-            //   },
-            // );
-            // filteredList = x.where((element) => element.createdat.day == selectedDate.day).toList();
             return Column(
               children: [
                 Row(

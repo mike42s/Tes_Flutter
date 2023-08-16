@@ -153,18 +153,6 @@ class _UbahProfileState extends State<UbahProfile> {
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      // ListTile(
-                                      //   title: Text('Camera'),
-                                      //   onTap: () {
-                                      //     Navigator.pop(context, 'Option 1');
-                                      //   },
-                                      // ),
-                                      // ListTile(
-                                      //   title: Text('Pilih dari Galery'),
-                                      //   onTap: () {
-                                      //     Navigator.pop(context, 'Option 2');
-                                      //   },
-                                      // ),
                                       MenuButton(
                                           label: 'Camera',
                                           icon: Icons.camera_alt,
