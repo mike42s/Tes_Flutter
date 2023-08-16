@@ -235,18 +235,22 @@ Future<PermissionStatus> getCameraPermission() async {
 }
 
 Future<PermissionStatus> getMediaPermission() async {
-  // Check if we already have permission to use the camera
-  // var permissionStatus = await Permission.mediaLibrary.status;
-  // var permissionStatus1 = await Permission.photosAddOnly.status;
-  // var permissionStatus2 = await Permission.manageExternalStorage.status;
-  // var permissionStatus3 = await Permission.manageExternalStorage.status;
-  // var permissionStatus4 = await Permission.manageExternalStorage.status;
-  // var permissionStatus = await Permission.mediaLibrary.status;
-  // var permissionStatus = await Permission.storage.request();
-  var permissionStatus = PermissionStatus.granted;
-  // print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + permissionStatus.toString());
-
-  return permissionStatus;
+  // var permissionStatus = PermissionStatus.granted;
+  // await Permission.storage.request();
+  // if (permissionStatus != PermissionStatus.granted) {
+  //   await Permission.storage.request();
+  // }
+  // // Check the status of the permission
+  // permissionStatus = await Permission.storage.status;
+  // if (permissionStatus == PermissionStatus.granted) {
+  //   // We have permission to use the camera
+  //   print("Permission granted");
+  // } else {
+  //   // We don't have permission to use the camera
+  //   print("Permission denied");
+  //   permissionStatus = PermissionStatus.denied;
+  // }
+  return PermissionStatus.granted;
 }
 
 Future<String> moveAndRenameFile(String sourceFiles, String newName) async {
