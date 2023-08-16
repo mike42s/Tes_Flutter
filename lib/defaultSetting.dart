@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:tesflutter/blank_page.dart';
 import 'package:tesflutter/modal/Profile.dart';
 import 'package:tesflutter/view/Menu.dart';
+import 'package:tesflutter/view/login.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
@@ -234,23 +236,16 @@ Future<PermissionStatus> getCameraPermission() async {
 
 Future<PermissionStatus> getMediaPermission() async {
   // Check if we already have permission to use the camera
-  var permissionStatus = await Permission.storage.status;
+  // var permissionStatus = await Permission.mediaLibrary.status;
+  // var permissionStatus1 = await Permission.photosAddOnly.status;
+  // var permissionStatus2 = await Permission.manageExternalStorage.status;
+  // var permissionStatus3 = await Permission.manageExternalStorage.status;
+  // var permissionStatus4 = await Permission.manageExternalStorage.status;
+  // var permissionStatus = await Permission.mediaLibrary.status;
+  // var permissionStatus = await Permission.storage.request();
+  var permissionStatus = PermissionStatus.granted;
+  // print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + permissionStatus.toString());
 
-  // If we don't have permission, request it
-  if (permissionStatus != PermissionStatus.granted) {
-    await Permission.storage.request();
-  }
-
-  // Check the status of the permission
-  permissionStatus = await Permission.storage.status;
-  if (permissionStatus == PermissionStatus.granted) {
-    // We have permission to use the camera
-    print("Permission granted");
-  } else {
-    // We don't have permission to use the camera
-    print("Permission denied");
-    permissionStatus = PermissionStatus.denied;
-  }
   return permissionStatus;
 }
 
@@ -414,31 +409,233 @@ class _NavBarState extends State<NavBar> {
 //           ),
 //         ))
 //     .toList();
-final List<Widget> imageSliders = imgList
+final List<Widget> imageSliders_1 = kotak
     .map((item) => Container(
+          // child: Container(
+          //     margin: EdgeInsets.all(5.0),
+          //     child: Row(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       children: [
+          //         item,
+          //         Icon(Icons.abc),
+          //         Icon(Icons.abc),
+          //         Icon(Icons.abc),
+          //       ],
+          //     )),
           child: Container(
-              margin: EdgeInsets.all(5.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  item,
-                  Icon(Icons.abc),
-                  Icon(Icons.abc),
-                  Icon(Icons.abc),
-                ],
-              )),
+              child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      item['iconJudul'],
+                      SizedBox(
+                        width: 1,
+                      ),
+                      SubJudul(
+                        text: item['Judul'].toString(),
+                        fontSize: 12,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SubJudul(
+                    text: item['SubJudul1'].toString(),
+                    fontSize: 12,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SubJudul(
+                    text: item['SubJudul2'].toString(),
+                    fontSize: 12,
+                    color: Colors.green.shade300,
+                  ),
+                ),
+              ],
+            ),
+          )),
         ))
     .toList();
 final List<Widget> imgList = [
   Container(
-    child: Row(children: [Icon(Icons.abc), Text("Gojek")]),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.circle_rounded,
+                  size: 12,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 1,
+                ),
+                SubJudul(
+                  text: "gopay coins",
+                  fontSize: 12,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "26",
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "klik buat detailnya",
+              fontSize: 12,
+              color: Colors.green.shade300,
+            ),
+          ),
+        ],
+      ),
+    ),
   ),
   Container(
-    child: Row(children: [Icon(Icons.abc), Text("Gojek")]),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.watch_later,
+                  size: 12,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 1,
+                ),
+                SubJudul(
+                  text: "gopay later",
+                  fontSize: 12,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "Aktifin sekarang !",
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "klik disini",
+              fontSize: 12,
+              color: Colors.green.shade300,
+            ),
+          ),
+        ],
+      ),
+    ),
   ),
   Container(
-    child: Row(children: [Icon(Icons.abc), Text("Gojek")]),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.wallet,
+                  size: 12,
+                  color: Colors.blue,
+                ),
+                SizedBox(
+                  width: 1,
+                ),
+                SubJudul(
+                  text: "gopay",
+                  fontSize: 12,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "Rp.202.296",
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            flex: 1,
+            child: SubJudul(
+              text: "klik & cek riwayat",
+              fontSize: 12,
+              color: Colors.green.shade300,
+            ),
+          ),
+        ],
+      ),
+    ),
   ),
 ];
 final List<String> imgList_Send = [
@@ -449,3 +646,107 @@ final List<String> imgList_Send = [
   'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<double> _animation2;
+  // bool showImage = true;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+    _controller.forward();
+    Timer(Duration(seconds: 3), () {
+      setState(() {
+        // showImage = false;
+        _animation2 = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+        transision_replacement(context, Login());
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FadeTransition(
+                  opacity: _animation,
+                  child: Column(
+                    children: [
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Image.asset(
+                          'assets/images/defaultProfile.png',
+                          color: Colors.green,
+                          width: 80.0,
+                          height: 80.0,
+                        ),
+                      ),
+                      SizedBox(height: 50),
+                      Text(
+                        'Selalu pasti ada doa',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 100),
+                child: Text(
+                  'from',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 70),
+                child: Text(
+                  'Parody',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}

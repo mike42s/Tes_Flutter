@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tesflutter/defaultSetting.dart';
 import 'package:tesflutter/modal/Profile.dart';
 import 'package:tesflutter/view/KirimBarang.dart';
@@ -11,36 +12,92 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 final List categories = [
   {
-    'data': 'Films',
-    'icon': Icon(Icons.movie),
+    'data': 'GoRide',
+    'icon': Icon(
+      Icons.motorcycle,
+      size: 50,
+    ),
   },
   {
-    'data': 'Books',
-    'icon': Icon(Icons.book),
+    'data': 'GoCar',
+    'icon': Icon(
+      Icons.car_rental,
+      size: 50,
+    ),
   },
   {
-    'data': 'Music',
-    'icon': Icon(Icons.music_note),
+    'data': 'GoFood',
+    'icon': Icon(
+      Icons.food_bank_rounded,
+      size: 50,
+    ),
   },
   {
-    'data': 'Food',
-    'icon': Icon(Icons.fastfood),
+    'data': 'GoSend',
+    'icon': Icon(
+      Icons.fastfood,
+      size: 50,
+    ),
   },
   {
-    'data': 'Travel',
-    'icon': Icon(Icons.map),
+    'data': 'GoMart',
+    'icon': Icon(
+      Icons.shopify,
+      size: 50,
+    ),
   },
   {
-    'data': 'Min',
-    'icon': Icon(Icons.minimize),
+    'data': 'GoTagihan',
+    'icon': Icon(
+      Icons.receipt_long,
+      size: 50,
+    ),
   },
   {
-    'data': 'Lengths Support..................',
-    'icon': Icon(Icons.more),
+    'data': 'GoTansit',
+    'icon': Icon(
+      Icons.train,
+      size: 50,
+    ),
   },
   {
-    'data': 'Art',
-    'icon': Icon(Icons.abc),
+    'data': 'Lainnya',
+    'icon': Icon(
+      Icons.dashboard_customize_sharp,
+      size: 50,
+    ),
+  },
+];
+final List kotak = [
+  {
+    'Judul': 'gopay coins',
+    'iconJudul': Icon(
+      Icons.circle_rounded,
+      size: 12,
+      color: Colors.blue,
+    ),
+    'SubJudul1': '26',
+    'SubJudul2': 'Klik buat detailnya',
+  },
+  {
+    'Judul': 'gopay later',
+    'iconJudul': Icon(
+      Icons.watch_later,
+      size: 12,
+      color: Colors.blue,
+    ),
+    'SubJudul1': 'Aktifin sekarang!',
+    'SubJudul2': 'klik disini',
+  },
+  {
+    'Judul': 'gopay',
+    'iconJudul': Icon(
+      Icons.wallet,
+      size: 12,
+      color: Colors.blue,
+    ),
+    'SubJudul1': 'Rp.202.296',
+    'SubJudul2': 'klik & cek riwayat',
   },
 ];
 
@@ -57,6 +114,25 @@ const colorIcon = Colors.black;
 class _MyHomePageState extends State<MyHomePage> {
   late Profile profile;
   final int _currentIndex = 0;
+  Future<bool> _requestPermission() async {
+    if (await Permission.storage.request().isGranted) {
+      // Permission is granted
+      return true;
+    } else {
+      // Permission is not granted
+      return false;
+    }
+  }
+
+  Future<bool> _checkPermissions() async {
+    var status = await Permission.storage.status;
+    if (status.isGranted) {
+      return true;
+    }
+
+    status = await Permission.storage.request();
+    return status.isGranted;
+  }
 
   @override
   void initState() {
@@ -67,6 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void init_State() async {
     Geolocator.requestPermission();
+
+    await _checkPermissions();
   }
 
   @override
@@ -79,8 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return true; // Return true to confirm the pop
       },
       child: Scaffold(
-        bottomNavigationBar:
-            NavBar(currentIndex: _currentIndex, profile: profile),
+        bottomNavigationBar: NavBar(currentIndex: _currentIndex, profile: profile),
         // appBar: AppBar(
         //   title: StyledSearchBar(),
         //   // leading: Container(
@@ -109,14 +186,14 @@ class _MyHomePageState extends State<MyHomePage> {
         //   ],
         // ),
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100), // Adjust the height as needed
+          preferredSize: Size.fromHeight(76), // Adjust the height as needed
           child: GojekSearchBar(
             profile: profile,
           ),
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,73 +201,362 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      color: Colors.blue.shade200,
-                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade900,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
                       child: Container(
-                        // color: Colors.white,
-                        // child: CarouselSlider(
-                        //   options: CarouselOptions(
-                        //     enableInfiniteScroll: false,
-                        //     height: 50,
-                        //     aspectRatio: 2.0,
-                        //     enlargeCenterPage: true,
-                        //     scrollDirection: Axis.vertical,
-                        //     autoPlay: true,
-                        //   ),
-                        //   items: imageSliders,
-                        // ),
-                        child: Container(
-                            margin: EdgeInsets.all(5.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Row(children: [
-                                    Icon(Icons.abc),
-                                    Text("Gojek")
-                                  ]),
+                        // padding: EdgeInsets.all(10),
+
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  enableInfiniteScroll: false,
+                                  height: 90,
+                                  aspectRatio: 2.0,
+                                  enlargeCenterPage: true,
+                                  scrollDirection: Axis.vertical,
+                                  autoPlay: true,
                                 ),
-                                Icon(Icons.abc),
-                                Icon(Icons.abc),
-                                Icon(Icons.abc),
-                              ],
-                            )),
+                                items: imageSliders_1,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(1),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Icons.upload_rounded,
+                                      color: Colors.blue.shade900,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  SubJudul(
+                                    text: "Bayar",
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: EdgeInsets.all(1),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.blue.shade900,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  SubJudul(
+                                    text: "Top Up",
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: EdgeInsets.all(1),
+                                    child: Icon(
+                                      Icons.rocket_launch,
+                                      color: Colors.blue.shade900,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  SubJudul(
+                                    text: "Eksplor",
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        // child: Container(
+                        //     margin: EdgeInsets.all(5.0),
+                        //     child: Row(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Expanded(
+                        //           flex: 2,
+                        //           child: Container(
+                        //             padding: EdgeInsets.all(10),
+                        //             decoration: BoxDecoration(
+                        //               color: Colors.white,
+                        //               borderRadius: BorderRadius.circular(10),
+                        //             ),
+                        //             child: Column(
+                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                        //               children: [
+                        //                 Row(
+                        //                   children: [
+                        //                     Icon(
+                        //                       Icons.wallet,
+                        //                       size: 12,
+                        //                     ),
+                        //                     SizedBox(
+                        //                       width: 1,
+                        //                     ),
+                        //                     SubJudul(
+                        //                       text: "gopay",
+                        //                       fontSize: 12,
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //                 SizedBox(
+                        //                   height: 5,
+                        //                 ),
+                        //                 SubJudul(
+                        //                   text: "Rp.202.296",
+                        //                   fontSize: 12,
+                        //                 ),
+                        //                 SizedBox(
+                        //                   height: 5,
+                        //                 ),
+                        //                 SubJudul(
+                        //                   text: "klik & cek riwayat",
+                        //                   fontSize: 12,
+                        //                   color: Colors.green.shade300,
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           flex: 1,
+                        //           child: Column(
+                        //             // crossAxisAlignment: CrossAxisAlignment.center,
+                        //             // mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Container(
+                        //                 decoration: BoxDecoration(
+                        //                   color: Colors.white,
+                        //                   borderRadius: BorderRadius.circular(8),
+                        //                 ),
+                        //                 child: Icon(
+                        //                   Icons.upload_rounded,
+                        //                   color: Colors.blue.shade900,
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 6,
+                        //               ),
+                        //               SubJudul(
+                        //                 text: "Bayar",
+                        //                 fontSize: 12,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           flex: 1,
+                        //           child: Column(
+                        //             // crossAxisAlignment: CrossAxisAlignment.center,
+                        //             // mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Container(
+                        //                 decoration: BoxDecoration(
+                        //                   color: Colors.white,
+                        //                   borderRadius: BorderRadius.circular(8),
+                        //                 ),
+                        //                 child: Icon(
+                        //                   Icons.add,
+                        //                   color: Colors.blue.shade900,
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 6,
+                        //               ),
+                        //               SubJudul(
+                        //                 text: "Top Up",
+                        //                 fontSize: 12,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           flex: 1,
+                        //           child: Column(
+                        //             // crossAxisAlignment: CrossAxisAlignment.center,
+                        //             // mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Container(
+                        //                 decoration: BoxDecoration(
+                        //                   color: Colors.white,
+                        //                   borderRadius: BorderRadius.circular(8),
+                        //                 ),
+                        //                 child: Icon(
+                        //                   Icons.rocket_launch,
+                        //                   color: Colors.blue.shade900,
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 6,
+                        //               ),
+                        //               SubJudul(
+                        //                 text: "Eksplor",
+                        //                 fontSize: 12,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     )),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 10), // Add space here
+                      padding: const EdgeInsets.all(10), // Add space here
                       child: Wrap(
-                        spacing: 15,
-                        runSpacing: 20,
+                        spacing: 8,
+                        runSpacing: 10,
                         children: categories.map((category) {
                           return GestureDetector(
                             onTap: () {
                               // Handle category button tapped
                             },
                             child: Container(
-                              constraints: const BoxConstraints(
-                                maxHeight: 80, // Set fixed height
-                              ),
+                              // constraints: const BoxConstraints(
+
+                              //   maxHeight: 80, // Set fixed height
+                              // ),
+                              width: 80,
+                              height: 80,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
+                                // color: Colors.grey.shade300,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    // Icon(
-                                    //   Icons.motorcycle,
-                                    //   size: 40,
-                                    // ),
-                                    category['icon'],
-                                    Text(category['data']),
-                                  ],
-                                ),
-                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              child: category['data'] != "GoSend"
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        final snackBar = SnackBar(
+                                          content: Text("Hanya bisa menggunakan fungsi Go Send"),
+                                        );
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                        // Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                constraints: const BoxConstraints(
+                                                  maxHeight: 80, // Set fixed height
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    // color: Colors.grey.shade300,
+                                                    // borderRadius: BorderRadius.circular(15),
+                                                    ),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey.shade300,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  child: category['icon'],
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                flex: 0,
+                                                child: CustomText(
+                                                  text: category['data'],
+                                                  fontSize: 12,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        transision_page(context, PengirimanBarang(profile: profile));
+                                      },
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              constraints: const BoxConstraints(
+                                                maxHeight: 80, // Set fixed height
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.grey.shade300,
+                                                  // borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey.shade300,
+                                                  // borderRadius: BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.travel_explore,
+                                                  size: 50,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 0,
+                                            child: CustomText(
+                                              text: "GoSend",
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                             ),
                           );
                         }).toList(),
@@ -198,40 +564,39 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    transision_page(
-                        context, PengirimanBarang(profile: profile));
-                  },
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: 80, // Set fixed height
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.motorcycle,
-                            size: 40,
-                          ),
-                          CustomText(
-                            text: "GoSend",
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     transision_page(context, PengirimanBarang(profile: profile));
+                //   },
+                //   child: Container(
+                //     constraints: const BoxConstraints(
+                //       maxHeight: 80, // Set fixed height
+                //     ),
+                //     decoration: BoxDecoration(
+                //       color: Colors.grey.shade300,
+                //       borderRadius: BorderRadius.circular(15),
+                //     ),
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Container(
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         children: [
+                //           Icon(
+                //             Icons.travel_explore,
+                //             size: 40,
+                //           ),
+                //           CustomText(
+                //             text: "GoSend",
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -292,16 +657,13 @@ class GojekSearchBar extends StatelessWidget {
                         icon: const Icon(Icons.search),
                         onPressed: () {
                           print('Search button pressed');
-                          showSearch(
-                              context: context, delegate: SearchBarDelegate());
+                          showSearch(context: context, delegate: SearchBarDelegate());
                         },
                       ),
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            showSearch(
-                                context: context,
-                                delegate: SearchBarDelegate());
+                            showSearch(context: context, delegate: SearchBarDelegate());
                           },
                           child: CustomText(
                             text: "Cari layanan, makanan, & tujuan",
@@ -388,8 +750,7 @@ class CollapsibleCard extends StatelessWidget {
   final bool isExpanded;
   final Function(int) onToggle;
 
-  CollapsibleCard(
-      {required this.index, required this.isExpanded, required this.onToggle});
+  CollapsibleCard({required this.index, required this.isExpanded, required this.onToggle});
 
   @override
   Widget build(BuildContext context) {

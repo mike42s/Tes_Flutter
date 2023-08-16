@@ -7,6 +7,7 @@ import 'package:tesflutter/modal/Profile.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:tesflutter/modal/dbprovider_database.dart';
+import 'package:tesflutter/view/Menu.dart';
 
 class UbahProfile extends StatefulWidget {
   final Profile profile;
@@ -38,7 +39,8 @@ class _UbahProfileState extends State<UbahProfile> {
         print("Result : " + result.toString());
         ProfileManager.saveProfile(_profile);
         setState(() {
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          transision_page_Delete(context, MyHomePage(profile: _profile));
         });
       });
     }
@@ -51,7 +53,7 @@ class _UbahProfileState extends State<UbahProfile> {
       child: Scaffold(
         appBar: AppBar(
           title: SubJudul(
-            text: "Edit Profile",
+            text: "Ubah Profile",
             textAlign: TextAlign.center,
           ),
           actions: <Widget>[
@@ -61,8 +63,7 @@ class _UbahProfileState extends State<UbahProfile> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey.shade400,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        40), // Same radius as the Container
+                    borderRadius: BorderRadius.circular(40), // Same radius as the Container
                   ),
                 ),
                 onPressed: () {
@@ -168,28 +169,20 @@ class _UbahProfileState extends State<UbahProfile> {
                                           label: 'Camera',
                                           icon: Icons.camera_alt,
                                           onPressed: () async {
-                                            final statusX =
-                                                await getCameraPermission();
+                                            final statusX = await getCameraPermission();
                                             print("Final Status = $statusX");
                                             if (statusX.isGranted) {
                                               final picker = ImagePicker();
-                                              XFile? pickedFile =
-                                                  await picker.pickImage(
+                                              XFile? pickedFile = await picker.pickImage(
                                                 source: ImageSource.camera,
-                                                preferredCameraDevice:
-                                                    CameraDevice.front,
+                                                preferredCameraDevice: CameraDevice.front,
                                               );
                                               if (pickedFile != null) {
-                                                File selectedFile =
-                                                    File(pickedFile.path);
+                                                File selectedFile = File(pickedFile.path);
                                                 print(selectedFile);
-                                                final x =
-                                                    await moveAndRenameFile(
-                                                        selectedFile.path,
-                                                        generateFileName(
-                                                            selectedFile.path));
-                                                print("Result after Moving : " +
-                                                    x.toString());
+                                                final x = await moveAndRenameFile(
+                                                    selectedFile.path, generateFileName(selectedFile.path));
+                                                print("Result after Moving : " + x.toString());
                                                 _profile.fotodriver = x;
                                                 setState(() {
                                                   Navigator.pop(context);
@@ -198,33 +191,26 @@ class _UbahProfileState extends State<UbahProfile> {
                                                 print("error");
                                               }
                                             } else {
-                                              print(
-                                                  "Error for request permission camera");
+                                              print("Error for request permission camera");
                                             }
                                           }),
                                       MenuButton(
                                         label: 'Gallery',
                                         icon: Icons.photo,
                                         onPressed: () async {
-                                          final statusX =
-                                              await getMediaPermission();
+                                          final statusX = await getMediaPermission();
                                           print("Final Status = $statusX");
                                           if (statusX.isGranted) {
                                             final picker = ImagePicker();
-                                            XFile? pickedFile =
-                                                await picker.pickImage(
+                                            XFile? pickedFile = await picker.pickImage(
                                               source: ImageSource.gallery,
                                             );
                                             if (pickedFile != null) {
-                                              File selectedFile =
-                                                  File(pickedFile.path);
+                                              File selectedFile = File(pickedFile.path);
                                               print(selectedFile);
                                               final x = await moveAndRenameFile(
-                                                  selectedFile.path,
-                                                  generateFileName(
-                                                      selectedFile.path));
-                                              print("Result after Moving : " +
-                                                  x.toString());
+                                                  selectedFile.path, generateFileName(selectedFile.path));
+                                              print("Result after Moving : " + x.toString());
                                               _profile.fotodriver = x;
                                               setState(() {
                                                 Navigator.pop(context);
@@ -233,8 +219,7 @@ class _UbahProfileState extends State<UbahProfile> {
                                               print("error");
                                             }
                                           } else {
-                                            print(
-                                                "Error for request permission camera");
+                                            print("Error for request permission camera");
                                           }
                                         },
                                       ),
@@ -262,8 +247,7 @@ class _UbahProfileState extends State<UbahProfile> {
                   Expanded(
                     flex: 4,
                     child: CustomText(
-                      text:
-                          "Pasang Foto yang oke! Semua orang bakal bisa lihat.",
+                      text: "Pasang Foto yang oke! Semua orang bakal bisa lihat.",
                     ),
                   ),
                 ],
@@ -292,6 +276,7 @@ class _UbahProfileState extends State<UbahProfile> {
                         ],
                       ),
                       TextFormField(
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: _profile.nama,
                         decoration: InputDecoration(
                           hintText: "Huruf alfabet, tanpa emoji/simbol",
@@ -338,6 +323,7 @@ class _UbahProfileState extends State<UbahProfile> {
                         ],
                       ),
                       TextFormField(
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: _profile.noktp,
                         decoration: InputDecoration(
                           hintText: "Angka",
@@ -348,8 +334,7 @@ class _UbahProfileState extends State<UbahProfile> {
                             return 'No KTP is required';
                           }
 
-                          final alphabeticPattern =
-                              RegExp(r'^[0-9]*$'); // Allows only number
+                          final alphabeticPattern = RegExp(r'^[0-9]*$'); // Allows only number
 
                           if (!alphabeticPattern.hasMatch(value)) {
                             return 'Input must contain numbers only';
@@ -384,6 +369,7 @@ class _UbahProfileState extends State<UbahProfile> {
                         ],
                       ),
                       TextFormField(
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: _profile.password,
                         decoration: InputDecoration(
                           hintText: "Kombinasi selain emoji",
@@ -394,8 +380,7 @@ class _UbahProfileState extends State<UbahProfile> {
                             return 'Password is required';
                           }
 
-                          final passwordPattern = RegExp(
-                              r'^[!-~]+$'); // Allows only ASCII characters (range: 32-126)
+                          final passwordPattern = RegExp(r'^[!-~]+$'); // Allows only ASCII characters (range: 32-126)
 
                           if (!passwordPattern.hasMatch(value)) {
                             return 'Input must only contain ASCII characters (range: 32-126)';

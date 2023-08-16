@@ -172,10 +172,10 @@ class _InputDataState extends State<InputData> {
     final locationSettings = LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 10);
     final position = await Geolocator.getPositionStream(locationSettings: locationSettings)
         .first; // Using `.first` to get the first position from the stream
-    // setState(() {
-    //   _latitude = position.latitude.toString();
-    //   _longtitude = position.longitude.toString();
-    // });
+    setState(() {
+      _latitude = position.latitude.toString();
+      _longtitude = position.longitude.toString();
+    });
     print("position stream : " + position.toString());
     return position;
   }
@@ -185,6 +185,11 @@ class _InputDataState extends State<InputData> {
     await _getPositionStreamWithSettings();
 
     // LocationPermission permission = await Geolocator.requestPermission();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -252,6 +257,7 @@ class _InputDataState extends State<InputData> {
                   ? FutureBuilder<Position>(
                       future: _getPositionStream,
                       builder: (context, snapshot) {
+                        print(snapshot.toString());
                         if (snapshot.hasData) {
                           _latitude = snapshot.data!.latitude.toString();
                           _longtitude = snapshot.data!.longitude.toString();
@@ -411,6 +417,7 @@ class _InputDataState extends State<InputData> {
                                           label: 'Gallery',
                                           icon: Icons.photo,
                                           onPressed: () async {
+                                            print("Form Pengiriman Barang ll !");
                                             final statusX = await getMediaPermission();
                                             print("Final Status = $statusX");
                                             if (statusX.isGranted) {
@@ -765,7 +772,7 @@ class _InputDataState extends State<InputData> {
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                               child: SubJudul(text: "Foto Barang"),
                             ),
-                            fotoPengirimanBarang == null
+                            fotoPengirimanBarang == null || fotoPengirimanBarang!.isEmpty
                                 ? Center(child: SubJudul(text: "Foto tidak ada"))
                                 // : DisplaysFile(fotoPengirimanBarang!, "Image"),
                                 : Container(

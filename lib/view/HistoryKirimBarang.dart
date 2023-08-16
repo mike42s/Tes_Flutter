@@ -45,6 +45,11 @@ class _HistoryListPageState extends State<HistoryListPage> {
             );
           } else if (snapshot.hasData) {
             final x = snapshot.data!;
+            // print(x.toString());
+            for (int i = 0; i < x.length; i++) {
+              print(x[i].toJson().toString());
+            }
+            // filteredList = x;
 
             // Filter the history goods by a specific date (e.g., 15th of August)
             // DateTime targetDate = DateTime(2023, 8, 15); // Replace with your desired date
@@ -73,32 +78,46 @@ class _HistoryListPageState extends State<HistoryListPage> {
             //     );
             //   },
             // );
+            // filteredList = x.where((element) => element.createdat.day == selectedDate.day).toList();
             return Column(
               children: [
-                Calendar(
-                  selectedDate: selectedDate,
-                  onDateSelected: (date) {
-                    setState(() {
-                      selectedDate = date;
-                      filteredList = x.where((element) => element.createdat.day == selectedDate.day).toList();
-                    });
-                  },
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    filteredList.isEmpty
+                        ? SubJudul(text: "Belum Tersortir berdasarkan tanggal")
+                        : Expanded(
+                            child: SubJudul(
+                                textAlign: TextAlign.center,
+                                text:
+                                    "Tersortir tgl (dd/MM/yyyy) ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}")),
+                    Calendar(
+                      selectedDate: selectedDate,
+                      onDateSelected: (date) {
+                        setState(() {
+                          selectedDate = date;
+                          filteredList = x.where((element) => element.createdat.day == selectedDate.day).toList();
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                filteredList.length > 0
+                x.length > 0
                     ? Expanded(
                         child: ListView.builder(
-                          itemCount: filteredList.length,
+                          itemCount: filteredList.isNotEmpty ? filteredList.length : x.length,
                           itemBuilder: (context, index) {
+                            final data = filteredList.isNotEmpty ? filteredList[index] : x[index];
                             return ListTile(
                               title: Text(
-                                  'History Barang ID: ${DateFormat('dd/MM/yyyy hh:mm:s').format((filteredList[index].createdat))}'),
+                                'History Barang Date: ${DateFormat('dd/MM/yyyy hh:mm:s').format(data.createdat)}',
+                              ),
                               onTap: () {
-                                // Replace with your transition logic
-                                // transision_page(context, HistoryDetailPage());
                                 transision_page(
                                   context,
                                   HistoryDetailPage(
-                                    historyBarang: filteredList[index],
+                                    historyBarang: data,
                                     profile: _profile,
                                   ),
                                 );
